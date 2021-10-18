@@ -1,7 +1,9 @@
+import TourLeaderModel from 'src/app/core/models/TourLeaderModel';
 
 export default interface TourModel {
     id: number;
     tourLeaderIds: number[];
+    leaders: TourLeaderModel[];
     tourTitle: string;
     startTime: Date;
     status: number;

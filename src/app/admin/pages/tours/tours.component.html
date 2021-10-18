@@ -67,7 +67,11 @@
                     <!-- Leaders Column -->
                     <ng-container matColumnDef="Leaders">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Leaders </th>
-                        <td mat-cell *matCellDef="let row"> {{row.tourLeaderIds}} </td>
+                        <td mat-cell *matCellDef="let row">
+                            <span *ngFor="let leader of row.leaders">
+                                {{leader.fullName}}
+                            </span>
+                        </td>
                     </ng-container>
 
                     <!-- StartTime Column -->

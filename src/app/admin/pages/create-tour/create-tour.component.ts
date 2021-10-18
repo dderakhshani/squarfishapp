@@ -8,7 +8,7 @@ import TourLeaderModel from 'src/app/core/models/TourLeaderModel';
 import { TourLeaderService } from '../../api/tour-leader.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -27,20 +27,33 @@ export class CreateTourComponent implements OnInit {
   constructor(
     private tourService: TourService,
     private tourLeaderService: TourLeaderService,
+    private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,) {
 
+    if (this.activatedRoute.snapshot.params.tour != undefined) {
+      this.tour = JSON.parse(this.activatedRoute.snapshot.params.tour);
+      this.tour.tourLeaderIds = [];
+      this.tour.leaders.forEach(x => {
+        this.tour.tourLeaderIds.push(x.id);
+      })
+    }
+    else {
+      this.tour.currencyUnit = 1;
+    }
+
     this.tourLeaderService.getAll().subscribe(result => {
       this.tourLeaders = result;
+
     });
     this.form = this.fb.group({
-      tourTitle: ['', [Validators.required]],
-      tourLeaderIds: [null, [Validators.required]],
-      price: [0, [Validators.required]],
-      currencyUnit: [1, [Validators.required]],
-      startTime: new FormControl(null, [this.dateRangeValidator()]),
+      tourTitle: [this.tour.tourTitle, [Validators.required]],
+      tourLeaderIds: [this.tour.tourLeaderIds, [Validators.required]],
+      price: [this.tour.price, [Validators.required]],
+      currencyUnit: [this.tour.currencyUnit, [Validators.required]],
+      startTime: new FormControl(this.tour.startTime, [this.dateRangeValidator()]),
     })
   }
 
@@ -82,12 +95,19 @@ export class CreateTourComponent implements OnInit {
       currencyUnit: this.form.get("currencyUnit")?.value,
       startTime: this.form.get("startTime")?.value,
     }
-
-    this.tourService.add(this.tour).subscribe(result => {
-      dialogRef.close();
-      this.snackBar.open('Saved Successfuly', 'Ok');
-      this.router.navigate(['/admin/tours']);
-    });
+    if (this.tour.id == 0)
+      this.tourService.add(this.tour).subscribe(result => {
+        dialogRef.close();
+        this.snackBar.open('Saved Successfuly', 'Ok');
+        this.router.navigate(['/admin/tours']);
+      });
+    else {
+      this.tourService.update(this.tour).subscribe(result => {
+        dialogRef.close();
+        this.snackBar.open('Saved Successfuly', 'Ok');
+        this.router.navigate(['/admin/tours']);
+      });
+    }
   }
 
 }

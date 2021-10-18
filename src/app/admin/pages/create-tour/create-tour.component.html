@@ -1,0 +1,72 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-card>
+
+            <mat-card-content>
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tour Name:</mat-label>
+                            <input matInput placeholder="Type tour name" formControlName="tourTitle" required>
+                            <mat-error *ngIf="form.get('tourTitle')?.errors">Fill the tour name</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tour Leader </mat-label>
+                            <mat-select formControlName="tourLeaderIds" multiple>
+                                <mat-option *ngFor="let t of tourLeaders" [value]="t.id">
+                                    {{t.fullName}}
+                                </mat-option>
+
+                                <!-- <mat-option *ngFor="let leader of tourLeaders; let i =index" [value]="leader">
+                                    <mat-checkbox [checked]="selected === i" (change)="onChange(leader);selected = i">
+                                        {{leader.fullName}}</mat-checkbox>
+                                </mat-option> -->
+                            </mat-select>
+                            <mat-error *ngIf="form.get('tourLeaderIds')?.errors">Select at least one tour leader
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Price :</mat-label>
+                            <input matInput placeholder="Type price" type="number" formControlName="price" required>
+                            <mat-error *ngIf="form.get('price')?.errors">Please enter a price</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Currency Unit </mat-label>
+                            <mat-select formControlName="currencyUnit" name="type">
+                                <mat-option *ngFor="let cu of currencyUnits" [value]="cu.value">
+                                    {{cu.title}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Start date:</mat-label>
+                            <input matInput placeholder="Type start date" [matDatepicker]="picker"
+                                formControlName="startTime" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="form.get('startTime')?.errors">Start date must be in future</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button type="submit" color="primary">
+                    <mat-icon>save</mat-icon>
+                    Save
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+
+</div>

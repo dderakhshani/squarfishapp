@@ -4,7 +4,7 @@ import { LoginComponent } from './auth/pages/login/login.component';
 
 const routes: Routes = [
 
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'portal', loadChildren: () => import('./portal/portal.module').then(m => m.PortalModule) },
 ];

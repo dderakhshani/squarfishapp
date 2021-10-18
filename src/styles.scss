@@ -1,4 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+:hover.anim-spin {
+  transform: rotate(180deg);
+}
+
+.anim-spin {
+  transform: rotate(0deg);
+  transition: transform;
+  transition-duration: 500ms;
+}
+
+:hover.anim-zoom {
+  transform: scale(1.2, 1.2);
+
+}
+
+.anim-zoom {
+  transform: scale(1, 1);
+  transition: all;
+  transition-duration: 300ms;
+}
+
+table {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}

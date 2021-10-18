@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { MaterialModule } from '../material.module';
 
 
 
@@ -11,7 +12,8 @@ import { SignupComponent } from './pages/signup/signup.component';
     SignupComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule,
   ]
 })
 export class AuthModule { }

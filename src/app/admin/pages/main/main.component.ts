@@ -19,8 +19,8 @@ export class MainComponent implements OnInit {
   user: UserModel;
   menuItems: MenuModel[] = [
     { title: "Home", link: "/admin/main", uniqueName: "home", icon: "home" },
-    { title: "Tours", link: "/admin/main", uniqueName: "Tours", icon: "home" },
-    { title: "Booking", link: "/admin/main", uniqueName: "Booking", icon: "home" },
+    { title: "Create Tour", link: "/admin/create-tour", uniqueName: "Tours", icon: "add_circle_outline" },
+    { title: "Tours", link: "/admin/tours", uniqueName: "Booking", icon: "summarize_outline" },
     { title: "Setting", link: "/admin/setting", uniqueName: "settings", icon: "settings" }
   ];
   selectedItem: string = this.menuItems[0].uniqueName;

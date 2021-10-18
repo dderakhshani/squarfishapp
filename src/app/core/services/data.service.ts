@@ -34,6 +34,31 @@ export class DataService {
       );
   }
 
+  putJsonData<T>(id: any, data: any, controller: String): Observable<T>;
+  putJsonData<T>(id: any, data: any, controller: String, action: string): Observable<T>;
+  putJsonData<T>(id: any, data: any, controller: String, action?: string) {
+    const headers = { 'Content-Type': 'application/json' }
+    if (action)
+      return this.http.put<T>(`${environment.apiUrl}/${controller}/${action}/${id}`, JSON.stringify(data), { headers })
+        .pipe(
+          catchError(this.handleError.bind(this))
+        );
+    else
+      return this.http.put<T>(`${environment.apiUrl}/${controller}/${id}`, JSON.stringify(data), { headers })
+        .pipe(
+          catchError(this.handleError.bind(this))
+        );
+  }
+
+  deleteData<T>(id: any, controller: String) {
+    const headers = { 'Content-Type': 'application/json' }
+
+    return this.http.delete<T>(`${environment.apiUrl}/${controller}/${id}`)
+      .pipe(
+        catchError(this.handleError.bind(this))
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

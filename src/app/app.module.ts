@@ -13,10 +13,12 @@ import { GlobalService } from './core/services/global.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './core/material.module';
+import { WaitingDialogComponent } from './components/waiting-dialog/waiting-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WaitingDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,7 @@ import { MaterialModule } from './core/material.module';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
+    MaterialModule
   ],
   providers: [
 
